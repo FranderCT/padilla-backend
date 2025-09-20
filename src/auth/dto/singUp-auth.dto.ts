@@ -1,25 +1,7 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { IsNotEmpty, IsString, MinLength, IsEmail } from "class-validator";
 
-export class CreateAuthDto {
-     @ApiProperty({
-        description: 'Nombre del usuario',
-        example: 'Juan',
-        })
-        @IsNotEmpty({ message: 'El nombre es obligatorio' })
-        @IsString()
-        name: string;
-    
-        @ApiProperty({
-        description: 'Apellidos del usuario',
-        example: 'Pérez Gómez',
-        })
-        @IsNotEmpty({message: 'Los apellidos son obligarios'})
-        @IsString()
-        @MinLength(3, {message: 'Debe contener 3 letras o mas.'})
-        lastname : string;
-    
-    
+export class SingUpAuthDto {
         @ApiProperty({
         description: 'Correo electrónico único del usuario',
         example: 'juan@test.com',
@@ -27,7 +9,6 @@ export class CreateAuthDto {
         @IsNotEmpty({ message: 'El correo es obligatorio' })
         @IsEmail({}, { message: 'El correo no es válido' })
         email: string;
-    
     
         @ApiProperty({
         description: 'Contraseña del usuario',

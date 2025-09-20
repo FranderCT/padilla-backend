@@ -10,10 +10,6 @@ import { dot } from 'node:test/reporters';
 
 @Injectable()
 export class UsersService {
-  create(createUserDto: CreateUserDto) {
-    throw new Error('Method not implemented.');
-  }
-
   constructor (
     @InjectRepository(User)
     private readonly userRepo : Repository<User>
@@ -38,7 +34,7 @@ export class UsersService {
     return saved;
   }
 
-  async findById(id: number): Promise<User> {
+  async findById(id: number): Promise<User | undefined> {
     const existing = await this.userRepo.findOne({ 
       where: {id},
       select: ["name", "lastname", "email"]
@@ -51,7 +47,11 @@ export class UsersService {
     return existing;
   }
 
-  async findAll () : Promise<User[]>{
+   async findByEmail(email: string) {
+    return await this.userRepo.findOne({ where: { email } });
+  }
+
+  async findAll () : Promise<User[] | undefined>{
     return this.userRepo.find({
       select: ["name", "lastname", "email"]
     });
